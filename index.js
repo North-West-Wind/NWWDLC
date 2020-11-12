@@ -96,7 +96,7 @@ app.get("/api/krunker/servers/:key", async(request, response) => {
 	if(request.params.key != process.env.KEY) return response.json({ err: true, message: "Access denied" });
 	try {
 		const puppeteer = require("puppeteer");
-  	const browser = await puppeteer.launch({ args: ['--no-sandbox'] });
+  	const browser = await puppeteer.launch({ headless: false, args: ['--no-sandbox', '--disable-setuid-sandbox'] });
   	const page = await browser.newPage();
   	await page.goto("https://matchmaker.krunker.io/game-list?hostname=krunker.io");
   	const element = await page.$("pre");
